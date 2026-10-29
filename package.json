@@ -1,0 +1,16 @@
+{
+  "name": "meet-in-mind",
+  "version": "1.0.0",
+  "description": "meet in mind - 2~4 人联机猜词游戏",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}

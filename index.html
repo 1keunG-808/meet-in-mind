@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Meet in mind</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Meet in mind</div>
+    <div class="topbar-right">
+      <button id="themeToggle" class="icon-btn" aria-label="切换日间/夜间">
+        <div class="t-icon-swap" data-state="a">
+          <!-- 月亮 -->
+          <span class="t-icon" data-icon="a">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+              <path d="M466.176 119.978667A394.709333 394.709333 0 0 0 512 906.666667c210.346667 0 383.402667-164.949333 394.112-374.101334a32 32 0 0 0-35.626667-33.450666 330.666667 330.666667 0 0 1-368.682666-345.6 32 32 0 0 0-35.626667-33.536z m-28.373333 69.717333l0.170666 3.754667A394.666667 394.666667 0 0 0 832 565.333333l6.357333-0.128-1.024 6.186667a330.666667 330.666667 0 1 1-405.248-380.330667l5.717334-1.365333z" fill="currentColor"></path>
+            </svg>
+          </span>
+          <!-- 太阳 -->
+          <span class="t-icon" data-icon="b">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+              <path d="M530.968381 872.399238c17.554286 0 31.792762 14.238476 31.792762 31.792762v63.634286a31.792762 31.792762 0 1 1-63.585524 0v-63.634286c0-17.554286 14.238476-31.792762 31.792762-31.792762z m-254.829714-105.569524a31.792762 31.792762 0 0 1 0 45.007238l-45.007238 44.958477a31.792762 31.792762 0 0 1-44.958477-44.958477l44.958477-44.958476a31.792762 31.792762 0 0 1 44.958476 0z m554.617904 0l45.007239 45.007238a31.792762 31.792762 0 0 1-44.958477 44.958477l-45.007238-44.958477a31.792762 31.792762 0 0 1 44.958476-44.958476zM531.017143 215.186286a296.813714 296.813714 0 1 1 0 593.627428 296.813714 296.813714 0 0 1 0-593.627428z m0 63.585524a233.22819 233.22819 0 1 0 0 466.45638 233.22819 233.22819 0 0 0 0-466.45638z m-392.240762 201.386666a31.792762 31.792762 0 1 1 0 63.634286H75.142095a31.792762 31.792762 0 1 1 0-63.585524h63.585524z m848.067048 0a31.792762 31.792762 0 0 1 0 63.634286h-63.634286a31.792762 31.792762 0 1 1 0-63.585524h63.634286zM231.131429 167.253333l44.958476 44.958477a31.792762 31.792762 0 1 1-44.958476 44.958476l-44.958477-44.958476a31.792762 31.792762 0 0 1 44.958477-44.958477z m644.632381 0a31.792762 31.792762 0 0 1 0 44.958477l-44.958477 44.958476a31.792762 31.792762 0 1 1-45.007238-44.958476l44.958476-44.958477a31.792762 31.792762 0 0 1 45.007239 0zM530.968381 24.380952c17.554286 0 31.792762 14.238476 31.792762 31.792762v63.634286a31.792762 31.792762 0 1 1-63.585524 0V56.173714c0-17.554286 14.238476-31.792762 31.792762-31.792762z" fill="currentColor"></path>
+            </svg>
+          </span>
+        </div>
+      </button>
+      <!-- 首页设置头像入口 -->
+      <div class="avatar global-avatar" id="globalAvatarBtn" title="设置头像"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 首页 -->
+    <section id="screen-home" class="screen active">
+      <div class="card">
+        <h2>创建房间</h2>
+
+        <label>人数</label>
+        <div class="sliding-tabs" id="playerCount">
+          <span class="sliding-tabs-pill" aria-hidden="true"></span>
+          <button data-value="2" class="active">2 人</button>
+          <button data-value="3">3 人</button>
+          <button data-value="4">4 人</button>
+        </div>
+
+        <label>每回合时间</label>
+        <div class="sliding-tabs" id="durationPreset">
+          <span class="sliding-tabs-pill" aria-hidden="true"></span>
+          <button data-value="30" class="active">30s</button>
+          <button data-value="60">60s</button>
+          <button data-value="custom">自定义</button>
+        </div>
+        <div class="custom-time collapsed" id="customTimeWrapper">
+          <input type="number" id="customDuration" min="15" max="100" value="45" />
+          <span>秒</span>
+        </div>
+
+        <button id="createBtn" class="primary-btn">创建房间</button>
+      </div>
+
+      <div class="divider">或</div>
+
+      <div class="card">
+        <h2>加入房间</h2>
+        <input type="text" id="joinCode" placeholder="输入邀请码" maxlength="6"
+               autocapitalize="characters" autocomplete="off" spellcheck="false" />
+        <button id="joinBtn" class="primary-btn">加入房间</button>
+      </div>
+
+      <p id="homeError" class="error-text"></p>
+    </section>
+
+    <!-- 大厅 -->
+    <section id="screen-lobby" class="screen">
+      <div class="card" style="position: relative;">
+        <p class="label">邀请码</p>
+        <button id="copyCodeBtn" class="copy-code-btn" title="复制邀请码">
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+            <path d="M761.088 715.3152a38.7072 38.7072 0 0 1 0-77.4144 37.4272 37.4272 0 0 0 37.4272-37.4272V265.0112a37.4272 37.4272 0 0 0-37.4272-37.4272H425.6256a37.4272 37.4272 0 0 0-37.4272 37.4272 38.7072 38.7072 0 1 1-77.4144 0 115.0976 115.0976 0 0 1 114.8416-114.8416h335.4624a115.0976 115.0976 0 0 1 114.8416 114.8416v335.4624a115.0976 115.0976 0 0 1-114.8416 114.8416z" fill="currentColor"></path>
+            <path d="M589.4656 883.0976H268.1856a121.1392 121.1392 0 0 1-121.2928-121.2928v-322.56a121.1392 121.1392 0 0 1 121.2928-121.344h321.28a121.1392 121.1392 0 0 1 121.2928 121.2928v322.56c1.28 67.1232-54.1696 121.344-121.2928 121.344zM268.1856 395.3152a43.52 43.52 0 0 0-43.8784 43.8784v322.56a43.52 43.52 0 0 0 43.8784 43.8784h321.28a43.52 43.52 0 0 0 43.8784-43.8784v-322.56a43.52 43.52 0 0 0-43.8784-43.8784z" fill="currentColor"></path>
+          </svg>
+        </button>
+        <div class="room-code" id="lobbyCode">------</div>
+        <p class="hint">把邀请码发给朋友</p>
+      </div>
+
+      <div class="card">
+        <h2>玩家 <span id="lobbyCount"></span></h2>
+        <ul id="lobbyPlayers" class="player-list"></ul>
+      </div>
+
+      <button id="startBtn" class="primary-btn">开始游戏</button>
+      <p class="hint" id="lobbyHint">等待玩家加入…</p>
+      <button id="leaveBtn" class="text-btn">离开房间</button>
+    </section>
+
+    <!-- 输入回合 -->
+    <section id="screen-input" class="screen">
+      <div class="round-bar">
+        <span id="inputRound">第 1 回合</span>
+        <span id="inputTimer" class="timer">--</span>
+      </div>
+
+      <div id="inputPlayers" class="avatar-row"></div>
+
+      <div class="input-area">
+        <input type="text" id="wordInput" class="word-input" maxlength="10"
+               placeholder="输入一个词" autocomplete="off" spellcheck="false" />
+        <div class="input-meta"><span id="wordLen">0</span>/10</div>
+        <button id="submitWordBtn" class="primary-btn">提交</button>
+      </div>
+      
+      <!-- 输入页面的历史记录 -->
+      <div class="history-section" id="inputHistory"></div>
+    </section>
+
+    <!-- 揭晓 / 投票 -->
+    <section id="screen-vote" class="screen">
+      <div class="round-bar">
+        <span id="voteRound">第 1 回合</span>
+        <span class="label">揭晓</span>
+      </div>
+
+      <div id="voteWords" class="word-grid"></div>
+
+      <div class="vote-actions">
+        <button id="voteSameBtn" class="vote-btn">词义相同，结束</button>
+        <button id="voteNextBtn" class="vote-btn">下一轮</button>
+      </div>
+
+      <div id="voteStatus" class="vote-status"></div>
+      <p class="hint">需要所有人选择一致才会推进，可随时更改</p>
+
+      <!-- 投票页面的历史记录 -->
+      <div class="history-section" id="voteHistory"></div>
+    </section>
+
+    <!-- 结束 -->
+    <section id="screen-ended" class="screen">
+      <div class="card">
+        <h2>游戏结束</h2>
+        <p class="summary">共进行 <strong id="endRounds">0</strong> 回合</p>
+      </div>
+
+      <div class="table-wrap">
+        <table id="historyTable" class="history-table"></table>
+      </div>
+
+      <button id="exportBtn" class="primary-btn">导出图片</button>
+      <button id="againBtn" class="primary-btn outline">再来一局</button>
+    </section>
+  </main>
+
+  <input type="file" id="avatarFileInput" accept="image/*" style="display: none;" />
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
